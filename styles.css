@@ -46,6 +46,11 @@ body {
     margin-right: auto;
 }
 
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
 @keyframes move_wave {
     0% {
         transform: translateX(0) translateZ(0) scaleY(1)

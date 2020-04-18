@@ -25,7 +25,7 @@ $('#inputbtn').click(() => {
             //console.log(response);
             $('#datebox').append("Local date is: <span>" + moment().tz(response.timezone).format('dddd, MMMM Do YYYY') + "</span><br>");
             $('#datebox').append("Time at " + city + " is: <span>" + moment().tz(response.timezone).format('hh:mm:ss a') + "</span><br>");
-            $('#datebox').append("Weather at " + city + " is: <span>" + response.current.weather[0].main + "</span><br>with a temperature of <span>"+ response.current.temp + " degrees Fahrenheit</span><br>");
+            $('#datebox').append("Weather at " + city + " is: <span>" + response.current.weather[0].main + "</span><br>With a temperature of: <span>"+ response.current.temp + " degrees Fahrenheit</span><br>");
 
             switch(response.current.weather[0].main) {
                 case "Clear": 
