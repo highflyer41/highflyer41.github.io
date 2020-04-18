@@ -8,7 +8,7 @@ $('#inputbtn').click(() => {
 
     function getCoord () {
         return new Promise((resolve, reject) => {
-            $.get("http://api.openweathermap.org/data/2.5/weather?zip="+zipcode+",us&APPID=36de89dd9ba1aaa422fa4d99ab092bef", (response) => {
+            $.get("https://api.openweathermap.org/data/2.5/weather?zip="+zipcode+",us&APPID=36de89dd9ba1aaa422fa4d99ab092bef", (response) => {
                 //console.log(response);
                 lat = response.coord.lat;
                 long = response.coord.lon;
