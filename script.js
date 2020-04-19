@@ -180,7 +180,8 @@ $('#inputbtn').click(() => {
     getCoord().then(getData).catch((err) => {
        $('#datebox').append(err)});
 
-    $('#input').focus(); //keeps cursor in input box upon submit
+    //$('#input').focus(); //keeps cursor in input box upon submit
+    //not good on mobile devices. user has to manually close mobile keypad
 
     $('#threeDayForcast').show(); //show button to jump to page 2
 });
