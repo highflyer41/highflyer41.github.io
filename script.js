@@ -174,6 +174,7 @@ $('#inputbtn').click(() => {
                     break;
             };
 
+            updateFooter(); //call to update footer
         }); 
     };
     
@@ -190,3 +191,8 @@ $('#input,#inputCountry').keyup((e) => {
         $('#inputbtn').click()
     };
 });
+
+//moves footer to bottom of content
+function updateFooter() {
+    $('footer').css("position","static");
+};

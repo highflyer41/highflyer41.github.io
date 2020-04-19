@@ -85,6 +85,12 @@ body {
     background-color: #bf9bbb;
 }
 
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
 /* background wave animations */
 @keyframes move_wave {
     0% {
