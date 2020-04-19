@@ -36,7 +36,7 @@ $('#inputbtn').click(() => {
     //uses latlong coords from getCoord()
     function getData () {
         $.get("https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+long+"&units=imperial&appid=36de89dd9ba1aaa422fa4d99ab092bef", (response) => {
-            console.log(response);
+            //console.log(response);
             iconUrl = "http://openweathermap.org/img/wn/"+response.current.weather[0].icon+"@2x.png"; //stores url for weather icons
 
             //appends current relevent weather and time data for zipcode entered by user
@@ -180,8 +180,7 @@ $('#inputbtn').click(() => {
     getCoord().then(getData).catch((err) => {
        $('#datebox').append(err)});
 
-    //$('#input').focus(); //keeps cursor in input box upon submit
-    //not good on mobile devices. user has to manually close mobile keypad
+    $('#inputbtn').focus(); //moves cursor out of input field
 
     $('#threeDayForcast').show(); //show button to jump to page 2
 });
