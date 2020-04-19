@@ -1,10 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat:700);
-
+/* basic html,body adjustments and fonts */
 html, body {
     width: 100%;
     height: auto;
 }
-
 body {
     font-family: 'Montserrat','Helvetica Neue',Arial,sans-serif;
     color: #001A33;
@@ -12,6 +11,7 @@ body {
     top:0;
 }
 
+/* positioning for main content divs */
 .main {
     padding: 3em 0;
     z-index: 20;
@@ -46,11 +46,13 @@ body {
     margin-right: auto;
 }
 
+/* override default bootstrap row class margins */
 .row {
     margin-left: 0;
     margin-right: 0;
 }
 
+/* background wave animations */
 @keyframes move_wave {
     0% {
         transform: translateX(0) translateZ(0) scaleY(1)

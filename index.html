@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- standard meta and bootsrap libraries -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <title>My Weather APP</title>
+    <title>MENG's Weather APP</title>
 </head>
 <body>
-
+<!-- div containing background wave animations -->
     <div class="waveWrapper waveAnimation">
         <div class="waveWrapperInner bgTop">
           <div class="wave waveTop" style="background-image: url('https://front-end-noobs.com/jecko/img/wave-top.png')">
@@ -24,22 +25,24 @@
           </div>
         </div>
     </div>
-</div>
+    </div>
 
-<div class="row">
-    <div class="col-sm-12 col-md-12 col-xs-12 main">
-            <h1>Weather Checker App</h1>
-            <h4>Check the weather and time by zip code</h4>
-            <h5>Enter a zip code: </h5>
-            <input type="text" name="input" id="input">
-            <button id="inputbtn">Submit</button>
+    <!-- div for input content -->
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-xs-12 main">
+                <h1>Weather Checker App</h1>
+                <h4>Check the weather and time by zip code</h4>
+                <h5>Enter a zip code: </h5>
+                <input type="text" name="input" id="input">
+                <button id="inputbtn">Submit</button>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-sm-12 col-md-12 col-xs-12 main2">
-        <div id="datebox"></div>
+    <!-- div for appending main content -->
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-xs-12 main2">
+            <div id="datebox"></div>
+        </div>
     </div>
-</div>
     
     
     
