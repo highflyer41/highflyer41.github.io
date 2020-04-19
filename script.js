@@ -5,11 +5,9 @@ $('#inputbtn').click(() => {
     $('#day1date,#day1weather,#day2date,#day2weather,#day3date,#day3weather,#citybox').empty();
     $('#day1 img,#day2 img,#day3 img').remove();
 
-    //show page 2
-    $('#page2').show();
-
     //declare and initilize variables for use
     let zipcode = $('#input').val();
+    let country = $('#inputCountry').val();
     let lat = 0;
     let long = 0;
     let city = '';
@@ -19,11 +17,14 @@ $('#inputbtn').click(() => {
     //return a Promise for use in sequential processing
     function getCoord () {
         return new Promise((resolve, reject) => {
-            $.get("https://api.openweathermap.org/data/2.5/weather?zip="+zipcode+",us&APPID=36de89dd9ba1aaa422fa4d99ab092bef", (response) => {
+            $.get("https://api.openweathermap.org/data/2.5/weather?zip="+zipcode+","+country+"&APPID=36de89dd9ba1aaa422fa4d99ab092bef", (response) => {
                 //console.log(response);
                 lat = response.coord.lat; //store coords in variable
                 long = response.coord.lon;
                 city = response.name;
+                //show page 2
+                $('#page2').show();
+                $('#threeDayForcast').show(); //show button to jump to page 2
                 resolve(); //resolve promise
             }).fail(() => {
                 reject("Invalid Zip Code. Try Again!"); //failed to retrieve info, reject
@@ -181,12 +182,10 @@ $('#inputbtn').click(() => {
        $('#datebox').append(err)});
 
     $('#inputbtn').focus(); //moves cursor out of input field
-
-    $('#threeDayForcast').show(); //show button to jump to page 2
 });
 
 //allows enter key to submit user input
-$('#input').keyup((e) => {
+$('#input,#inputCountry').keyup((e) => {
     if(e.keyCode == 13){
         $('#inputbtn').click()
     };
