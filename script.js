@@ -1,40 +1,36 @@
-//click event for submit button
-$('#inputbtn').click(() => {
-    //clears the divs before appending
-    $('#datebox').empty();
-    $('#day1date,#day1weather,#day2date,#day2weather,#day3date,#day3weather,#citybox').empty();
-    $('#day1 img,#day2 img,#day3 img').remove();
+//declare and initilize variables for use
+let lat = 0;
+let long = 0;
+let city = '';
+let iconUrl = '';
+let countryCode = '';
 
-    //declare and initilize variables for use
+//function to get the latlong coords using the weather api call
+//return a Promise for use in sequential processing
+function getCoord () {
     let zipcode = $('#input').val();
     let country = $('#inputCountry').val();
-    let lat = 0;
-    let long = 0;
-    let city = '';
-    let iconUrl = '';
 
-    //function to get the latlong coords using the weather api call
-    //return a Promise for use in sequential processing
-    function getCoord () {
-        return new Promise((resolve, reject) => {
-            $.get("https://api.openweathermap.org/data/2.5/weather?zip="+zipcode+","+country+"&APPID=36de89dd9ba1aaa422fa4d99ab092bef", (response) => {
-                //console.log(response);
-                lat = response.coord.lat; //store coords in variable
-                long = response.coord.lon;
-                city = response.name;
-                //show page 2
-                $('#page2').show();
-                $('#threeDayForcast').show(); //show button to jump to page 2
-                resolve(); //resolve promise
-            }).fail(() => {
-                reject("Invalid Zip Code. Try Again!"); //failed to retrieve info, reject
-            });
+    return new Promise((resolve, reject) => {
+        $.get("https://api.openweathermap.org/data/2.5/weather?zip="+zipcode+","+country+"&APPID=36de89dd9ba1aaa422fa4d99ab092bef", (response) => {
+            //console.log(response);
+            lat = response.coord.lat; //store coords in variable
+            long = response.coord.lon;
+            city = response.name;
+            countryCode = country;
+            //show page 2
+            $('#page2').show();
+            $('#threeDayForcast').show(); //show button to jump to page 2
+            resolve(); //resolve promise
+        }).fail(() => {
+            reject("Invalid Zip Code. Try Again!"); //failed to retrieve info, reject
         });
-    };
-    
-    //function to get timezone information for use with moment package
-    //using the one call weather api
-    //uses latlong coords from getCoord()
+    });
+};
+
+//function to get timezone information for use with moment package
+//using the one call weather api
+//uses latlong coords from getCoord()
     function getData () {
         $.get("https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+long+"&units=imperial&appid=36de89dd9ba1aaa422fa4d99ab092bef", (response) => {
             //console.log(response);
@@ -42,9 +38,9 @@ $('#inputbtn').click(() => {
 
             //appends current relevent weather and time data for zipcode entered by user
             $('#datebox').append("Local date is: <span>" + moment().tz(response.timezone).format('dddd, MMMM Do YYYY') + "</span><br>");
-            $('#datebox').append("Time at " + city + ", "+country.toUpperCase()+" is: <span>" + moment().tz(response.timezone).format('hh:mm:ss a') + "</span><br>");
-            $('#datebox').append("Weather at " + city + ", "+country.toUpperCase()+" is: <span>" + response.current.weather[0].main + "<img style='width: 30px;' src="+iconUrl+">" + "</span><br>With a temperature of: <span>"+ response.current.temp + " °F</span><br>");
-            $('#citybox').append("<h2>Three day forecast for "+ city +", "+country.toUpperCase()+":</h2>");
+            $('#datebox').append("Time at " + city + ", "+countryCode.toUpperCase()+" is: <span>" + moment().tz(response.timezone).format('hh:mm:ss a') + "</span><br>");
+            $('#datebox').append("Weather at " + city + ", "+countryCode.toUpperCase()+" is: <span>" + response.current.weather[0].main + "<img style='width: 30px;' src="+iconUrl+">" + "</span><br>With a temperature of: <span>"+ response.current.temp + " °F</span><br>");
+            $('#citybox').append("<h2>Three day forecast for "+ city +", "+countryCode.toUpperCase()+":</h2>");
 
             //switch statment to load current weather images based on main weather conditions
             switch(response.current.weather[0].main) {
@@ -177,7 +173,14 @@ $('#inputbtn').click(() => {
             updateFooter(); //call to update footer
         }); 
     };
-    
+
+//click event for submit button
+$('#inputbtn').click(() => {
+    //clears the divs before appending
+    $('#datebox').empty();
+    $('#day1date,#day1weather,#day2date,#day2weather,#day3date,#day3weather,#citybox').empty();
+    $('#day1 img,#day2 img,#day3 img').remove();
+
     //execute functions in sequence
     getCoord().then(getData).catch((err) => {
        $('#datebox').append(err)});
