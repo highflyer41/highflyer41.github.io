@@ -18,7 +18,7 @@ $('#inputbtn').click(() => {
     function getCoord () {
         return new Promise((resolve, reject) => {
             $.get("https://api.openweathermap.org/data/2.5/weather?zip="+zipcode+","+country+"&APPID=36de89dd9ba1aaa422fa4d99ab092bef", (response) => {
-                //console.log(response);
+                console.log(response);
                 lat = response.coord.lat; //store coords in variable
                 long = response.coord.lon;
                 city = response.name;
@@ -42,9 +42,9 @@ $('#inputbtn').click(() => {
 
             //appends current relevent weather and time data for zipcode entered by user
             $('#datebox').append("Local date is: <span>" + moment().tz(response.timezone).format('dddd, MMMM Do YYYY') + "</span><br>");
-            $('#datebox').append("Time at " + city + " is: <span>" + moment().tz(response.timezone).format('hh:mm:ss a') + "</span><br>");
-            $('#datebox').append("Weather at " + city + " is: <span>" + response.current.weather[0].main + "<img style='width: 30px;' src="+iconUrl+">" + "</span><br>With a temperature of: <span>"+ response.current.temp + " °F</span><br>");
-            $('#citybox').append("<h2>Three day forecast for "+ city +":</h2>");
+            $('#datebox').append("Time at " + city + ", "+country.toUpperCase()+" is: <span>" + moment().tz(response.timezone).format('hh:mm:ss a') + "</span><br>");
+            $('#datebox').append("Weather at " + city + ", "+country.toUpperCase()+" is: <span>" + response.current.weather[0].main + "<img style='width: 30px;' src="+iconUrl+">" + "</span><br>With a temperature of: <span>"+ response.current.temp + " °F</span><br>");
+            $('#citybox').append("<h2>Three day forecast for "+ city +", "+country.toUpperCase()+":</h2>");
 
             //switch statment to load current weather images based on main weather conditions
             switch(response.current.weather[0].main) {
