@@ -1,6 +1,12 @@
 //click event for submit button
 $('#inputbtn').click(() => {
-    $('#datebox').empty(); //clears the div before appending
+    //clears the divs before appending
+    $('#datebox').empty();
+    $('#day1date,#day1weather,#day2date,#day2weather,#day3date,#day3weather,#citybox').empty();
+    $('#day1 img,#day2 img,#day3 img').remove();
+
+    //show page 2
+    $('#page2').show();
 
     //declare and initilize variables for use
     let zipcode = $('#input').val();
@@ -30,15 +36,16 @@ $('#inputbtn').click(() => {
     //uses latlong coords from getCoord()
     function getData () {
         $.get("https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+long+"&units=imperial&appid=36de89dd9ba1aaa422fa4d99ab092bef", (response) => {
-            //console.log(response);
+            console.log(response);
             iconUrl = "http://openweathermap.org/img/wn/"+response.current.weather[0].icon+"@2x.png"; //stores url for weather icons
 
-            //appends relevent weather and time data for zipcode entered by user
+            //appends current relevent weather and time data for zipcode entered by user
             $('#datebox').append("Local date is: <span>" + moment().tz(response.timezone).format('dddd, MMMM Do YYYY') + "</span><br>");
             $('#datebox').append("Time at " + city + " is: <span>" + moment().tz(response.timezone).format('hh:mm:ss a') + "</span><br>");
             $('#datebox').append("Weather at " + city + " is: <span>" + response.current.weather[0].main + "<img style='width: 30px;' src="+iconUrl+">" + "</span><br>With a temperature of: <span>"+ response.current.temp + " degrees Fahrenheit</span><br>");
+            $('#citybox').append("<h2>Three day forecast for "+ city +":</h2>");
 
-            //switch statment to load weather images based on main weather conditions
+            //switch statment to load current weather images based on main weather conditions
             switch(response.current.weather[0].main) {
                 case "Clear": 
                     $('#datebox').append("<img src='https://media.giphy.com/media/QZz9r30N2RM7DFIXqE/source.gif'>")
@@ -60,6 +67,112 @@ $('#inputbtn').click(() => {
                     $('#datebox').append("<img src='https://media.giphy.com/media/xUOxfjsW9fWPqEWouI/source.gif'>")
                     break;
             };
+
+            //day 1 weather info card
+            switch(response.daily[1].weather[0].main) {
+                case "Clear": 
+                    $('#day1').append("<img class='img-fluid' src='https://media.giphy.com/media/QZz9r30N2RM7DFIXqE/source.gif'>");
+                    $('#day1date').append(moment().tz(response.timezone).add(1, 'd').format('dddd, MMMM Do YYYY'));
+                    $('#day1weather').append("Weather: "+response.daily[1].weather[0].main+"<br>Temperature: "+response.daily[1].temp.day+"F");
+                    break;
+                case "Thunderstorm": 
+                    $('#day1').append("<img class='img-fluid' src='https://media.giphy.com/media/QZz9r30N2RM7DFIXqE/source.gif'>");
+                    $('#day1date').append(moment().tz(response.timezone).add(1, 'd').format('dddd, MMMM Do YYYY'));
+                    $('#day1weather').append("Weather: "+response.daily[1].weather[0].main+"<br>Temperature: "+response.daily[1].temp.day+"F");
+                    break;
+                case "Drizzle":
+                case "Rain":
+                    $('#day1').append("<img class='img-fluid' src='https://media.giphy.com/media/U7yxnzr21Xhnnb7Zxz/source.gif'>");
+                    $('#day1date').append(moment().tz(response.timezone).add(1, 'd').format('dddd, MMMM Do YYYY'));
+                    $('#day1weather').append("Weather: "+response.daily[1].weather[0].main+"<br>Temperature: "+response.daily[1].temp.day+"F");
+                    break;
+                case "Snow":
+                    $('#day1').append("<img class='img-fluid' src='https://media.giphy.com/media/6YNgoTEPs6vZe/source.gif'>");
+                    $('#day1date').append(moment().tz(response.timezone).add(1, 'd').format('dddd, MMMM Do YYYY'));
+                    $('#day1weather').append("Weather: "+response.daily[1].weather[0].main+"<br>Temperature: "+response.daily[1].temp.day+"F");
+                    break;
+                case "Clouds":
+                    $('#day1').append("<img class='img-fluid' src='https://media.giphy.com/media/Ke7i5t6QDmDSO82Uga/source.gif'>");
+                    $('#day1date').append(moment().tz(response.timezone).add(1, 'd').format('dddd, MMMM Do YYYY'));
+                    $('#day1weather').append("Weather: "+response.daily[1].weather[0].main+"<br>Temperature: "+response.daily[1].temp.day+"F");
+                    break;
+                default:
+                    $('#day1').append("<img class='img-fluid' src='https://media.giphy.com/media/xUOxfjsW9fWPqEWouI/source.gif'>");
+                    $('#day1date').append(moment().tz(response.timezone).add(1, 'd').format('dddd, MMMM Do YYYY'));
+                    $('#day1weather').append("Weather: "+response.daily[1].weather[0].main+"<br>Temperature: "+response.daily[1].temp.day+"F");
+                    break;
+            };
+
+            //day 2 weather info card
+            switch(response.daily[2].weather[0].main) {
+                case "Clear": 
+                    $('#day2').append("<img class='img-fluid' src='https://media.giphy.com/media/QZz9r30N2RM7DFIXqE/source.gif'>");
+                    $('#day2date').append(moment().tz(response.timezone).add(2, 'd').format('dddd, MMMM Do YYYY'));
+                    $('#day2weather').append("Weather: "+response.daily[2].weather[0].main+"<br>Temperature: "+response.daily[2].temp.day+"F");
+                    break;
+                case "Thunderstorm": 
+                    $('#day2').append("<img class='img-fluid' src='https://media.giphy.com/media/xUOwGoNa2uX6M170d2/source.gif'>");
+                    $('#day2date').append(moment().tz(response.timezone).add(2, 'd').format('dddd, MMMM Do YYYY'));
+                    $('#day2weather').append("Weather: "+response.daily[2].weather[0].main+"<br>Temperature: "+response.daily[2].temp.day+"F");
+                    break;
+                case "Drizzle":
+                case "Rain":
+                    $('#day2').append("<img class='img-fluid' src='https://media.giphy.com/media/U7yxnzr21Xhnnb7Zxz/source.gif'>");
+                    $('#day2date').append(moment().tz(response.timezone).add(2, 'd').format('dddd, MMMM Do YYYY'));
+                    $('#day2weather').append("Weather: "+response.daily[2].weather[0].main+"<br>Temperature: "+response.daily[2].temp.day+"F");
+                    break;
+                case "Snow":
+                    $('#day2').append("<img class='img-fluid' src='https://media.giphy.com/media/6YNgoTEPs6vZe/source.gif'>");
+                    $('#day2date').append(moment().tz(response.timezone).add(2, 'd').format('dddd, MMMM Do YYYY'));
+                    $('#day2weather').append("Weather: "+response.daily[2].weather[0].main+"<br>Temperature: "+response.daily[2].temp.day+"F");
+                    break;
+                case "Clouds":
+                    $('#day2').append("<img class='img-fluid' src='https://media.giphy.com/media/Ke7i5t6QDmDSO82Uga/source.gif'>");
+                    $('#day2date').append(moment().tz(response.timezone).add(2, 'd').format('dddd, MMMM Do YYYY'));
+                    $('#day2weather').append("Weather: "+response.daily[2].weather[0].main+"<br>Temperature: "+response.daily[2].temp.day+"F");
+                    break;
+                default:
+                    $('#day2').append("<img class='img-fluid' src='https://media.giphy.com/media/xUOxfjsW9fWPqEWouI/source.gif'>");
+                    $('#day2date').append(moment().tz(response.timezone).add(2, 'd').format('dddd, MMMM Do YYYY'));
+                    $('#day2weather').append("Weather: "+response.daily[2].weather[0].main+"<br>Temperature: "+response.daily[2].temp.day+"F");
+                    break;
+            };
+
+            //day 3 weather info card
+            switch(response.daily[3].weather[0].main) {
+                case "Clear": 
+                    $('#day3').append("<img class='img-fluid' src='https://media.giphy.com/media/QZz9r30N2RM7DFIXqE/source.gif'>");
+                    $('#day3date').append(moment().tz(response.timezone).add(3, 'd').format('dddd, MMMM Do YYYY'));
+                    $('#day3weather').append("Weather: "+response.daily[3].weather[0].main+"<br>Temperature: "+response.daily[3].temp.day+"F");
+                    break;
+                case "Thunderstorm": 
+                    $('#day3').append("<img class='img-fluid' src='https://media.giphy.com/media/xUOwGoNa2uX6M170d2/source.gif'>");
+                    $('#day3date').append(moment().tz(response.timezone).add(3, 'd').format('dddd, MMMM Do YYYY'));
+                    $('#day3weather').append("Weather: "+response.daily[3].weather[0].main+"<br>Temperature: "+response.daily[3].temp.day+"F");
+                    break;
+                case "Drizzle":
+                case "Rain":
+                    $('#day3').append("<img class='img-fluid' src='https://media.giphy.com/media/U7yxnzr21Xhnnb7Zxz/source.gif'>");
+                    $('#day3date').append(moment().tz(response.timezone).add(3, 'd').format('dddd, MMMM Do YYYY'));
+                    $('#day3weather').append("Weather: "+response.daily[3].weather[0].main+"<br>Temperature: "+response.daily[3].temp.day+"F");
+                    break;
+                case "Snow":
+                    $('#day3').append("<img class='img-fluid' src='https://media.giphy.com/media/6YNgoTEPs6vZe/source.gif'>");
+                    $('#day3date').append(moment().tz(response.timezone).add(3, 'd').format('dddd, MMMM Do YYYY'));
+                    $('#day3weather').append("Weather: "+response.daily[3].weather[0].main+"<br>Temperature: "+response.daily[3].temp.day+"F");
+                    break;
+                case "Clouds":
+                    $('#day3').append("<img class='img-fluid' src='https://media.giphy.com/media/Ke7i5t6QDmDSO82Uga/source.gif'>");
+                    $('#day3date').append(moment().tz(response.timezone).add(3, 'd').format('dddd, MMMM Do YYYY'));
+                    $('#day3weather').append("Weather: "+response.daily[3].weather[0].main+"<br>Temperature: "+response.daily[3].temp.day+"F");
+                    break;
+                default:
+                    $('#day3').append("<img class='img-fluid' src='https://media.giphy.com/media/xUOxfjsW9fWPqEWouI/source.gif'>");
+                    $('#day3date').append(moment().tz(response.timezone).add(3, 'd').format('dddd, MMMM Do YYYY'));
+                    $('#day3weather').append("Weather: "+response.daily[3].weather[0].main+"<br>Temperature: "+response.daily[3].temp.day+"F");
+                    break;
+            };
+
         }); 
     };
     
@@ -68,6 +181,8 @@ $('#inputbtn').click(() => {
        $('#datebox').append(err)});
 
     $('#input').focus(); //keeps cursor in input box upon submit
+
+    $('#threeDayForcast').show(); //show button to jump to page 2
 });
 
 //allows enter key to submit user input

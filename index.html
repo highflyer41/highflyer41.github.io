@@ -28,13 +28,14 @@
     </div>
 
     <!-- div for input content -->
+    <div class="container page1" id="top">
     <div class="row">
         <div class="col-sm-12 col-md-12 col-xs-12 main">
                 <h1>Weather Checker App</h1>
                 <h4>Check the weather and time by zip code</h4>
-                <h5>Enter a zip code: </h5>
-                <input type="text" name="input" id="input">
+                <input type="text" name="input" id="input" placeholder="zip code: ex. 12345">
                 <button id="inputbtn">Submit</button>
+                <button id="threeDayForcast"><a href="#page2">Three Day Forecast</a></button>
         </div>
     </div>
     <!-- div for appending main content -->
@@ -43,7 +44,43 @@
             <div id="datebox"></div>
         </div>
     </div>
-    
+    </div>
+
+    <div class="container" id="page2">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-xs-12" id="citybox">
+            </div>
+        </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-xs-12">
+            <div class="card-deck">
+                <div class="card" id="day1">
+                    <div class="card-body">
+                            <h5 class="card-title" id="day1date"></h5>
+                            <p class="card-text" id="day1weather"></p>
+                    </div>
+                </div>
+                <div class="card" id="day2">
+                    <div class="card-body">
+                        <h5 class="card-title" id="day2date"></h5>
+                        <p class="card-text" id="day2weather"></p>
+                    </div>
+                </div>
+                <div class="card" id="day3">
+                    <div class="card-body">
+                        <h5 class="card-title" id="day3date"></h5>
+                        <p class="card-text" id="day3weather"></p>
+                    </div>
+                </div>
+              </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-xs-12">
+            <button class="homebtn"><a href="#top">Back to Top</a></button>
+        </div>
+    </div>
+    </div>
     
     
 

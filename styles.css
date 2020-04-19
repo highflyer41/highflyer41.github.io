@@ -40,16 +40,49 @@ body {
     text-decoration: underline;
 }
 .main2 img {
-    width: 25%;
-    max-width: 25%;
+    width: 35%;
+    max-width: 35%;
     margin-left: auto;
     margin-right: auto;
 }
 
-/* override default bootstrap row class margins */
+#inputbtn, .homebtn{
+    background-color: #86377b;
+    color: white;
+}
+#threeDayForcast {
+    text-decoration: none;
+    background-color: #86377b;
+    display: none;
+}
+#threeDayForcast a, .homebtn a {
+    color: white;
+}
+.homebtn {
+    margin-top: 2em;
+}
+
+#citybox {
+    text-align: center;
+    padding-bottom: 2em;
+}
+
+.page1 {
+    height: 100vh;
+}
+#page2 {
+    margin-top: 10em;
+    margin-bottom: 5em;
+    display: none;
+}
+
+/* override default bootstrap class */
 .row {
     margin-left: 0;
     margin-right: 0;
+}
+.card-body {
+    background-color: #bf9bbb;
 }
 
 /* background wave animations */
