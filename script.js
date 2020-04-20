@@ -38,7 +38,7 @@ function getCoord () {
 
             //appends current relevent weather and time data for zipcode entered by user
             $('#datebox').append("Local date is: <span>" + moment().tz(response.timezone).format('dddd, MMMM Do YYYY') + "</span><br>");
-            $('#datebox').append("Time at " + city + ", "+countryCode.toUpperCase()+" is: <span>" + moment().tz(response.timezone).format('hh:mm:ss a') + "</span><br>");
+            $('#datebox').append("Time at " + city + ", "+countryCode.toUpperCase()+" is: <span>" + moment().tz(response.timezone).format('hh:mm:ss a z') + "</span><br>");
             $('#datebox').append("Weather at " + city + ", "+countryCode.toUpperCase()+" is: <span>" + response.current.weather[0].main + "<img style='width: 30px;' src="+iconUrl+">" + "</span><br>With a temperature of: <span>"+ response.current.temp + " °F</span><br>");
             $('#citybox').append("<h2>Three day forecast for "+ city +", "+countryCode.toUpperCase()+":</h2>");
 
